@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+<div class="question-list">
+    <h1>Question detail</h1>
+    {{ question.question_category }}
+    <p>Author: {{ question.user }}</p>
+    <h2>{{ question.title }}</h2>
+    <p>{{ question.question_text }}</p>
+    <p>Created: {{ question.date_created }}</p>
+    {% if user.is_authenticated %}
+      <button class="btn btn-link">
+        <a href="{% url 'answer_create' question.id %}">Ответить</a>
+      </button>
+    {% endif %}
+</div>
+
+<h2>Answers</h2>
+<ul>
+  {% for answer in question.answer_set.all %}
+    <section>
+        {{ answer.user }}
+        {{ answer.date_created }}
+        <li>{{ answer.answer_text }}</li>
+    </section>
+  {% empty %}
+    <li>No answers yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

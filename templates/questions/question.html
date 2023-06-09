@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+    <p><a href="{% url 'logout' %}">Log out</a></p>
+{% else %}
+    <p><a href="{% url 'login' %}">Log in</a></p><br>
+    <p><a href="{% url 'signup' %}">Sign up</a></p><br>
+{% endif %}
+
+<div class="question-list">
+    <h1>Question List</h1>
+    <ul>
+        {% for question in question_list %}
+            <li><strong>{{ question.title }}</strong></li>
+            <br>{{ question.question_text }}
+
+            {% if user.is_authenticated %}
+                <a href="{% url 'detail_view' question.id %}">View Question</a>
+            {% endif %}
+            <hr>
+
+        {% empty %}
+            <li>No questions available.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
