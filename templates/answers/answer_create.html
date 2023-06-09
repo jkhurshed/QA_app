@@ -1,13 +1,113 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 
-<h1>Create Answer</h1>
+<style>
+  .submit-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4c5eaf;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
 
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Submit</button>
-</form>
+  .submit-button:hover {
+    background-color: #45a049;
+  }
+
+  
+    .menu-button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: rgb(241, 239, 239);
+      color: rgb(14, 13, 13);
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      position: fixed;
+      top: 20px;
+      right: 50px;
+    }
+
+    .menu-button:hover {
+      background-color: transparent;
+    }
+  
+    .container {
+      max-width: 700px; /* Adjust the desired maximum width */
+      margin: 0 auto; /* Center the container horizontally */
+      padding: 20px;
+    }
+
+    .content {
+      margin-top: 40px; /* Adjust the margin as needed */
+    }
+
+    .my-custom-class {
+      background-color: #F0F0F0;
+      font-size: 16px;
+      border-color: transparent;
+    }
+
+    .text-container {
+        background-color: rgb(241, 239, 239);
+        border-radius: 10px;
+        text-align: text;
+        padding: 10px 10px;
+    }
+
+    .question-text {
+        color: grey; /* Set the desired text color */
+    }
+
+    .title-text {
+        color: black; /* Set the desired text color */
+    }
+
+    .return-button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: transparent;
+      color: rgb(14, 13, 13);
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      position: fixed;
+      top: 20px;
+      left: 50px;
+    }
+
+    .return-button:hover {
+      background-color: transparent;
+    }
+
+  </style>
+
+<body>
+  <div class="container">
+    <div class="text-container"> Это вопрос в теме "{{question.question_category}}". 
+      Пожалуйста, ответственно относитесь к ответам на такие вопросы.</div><br>
+    <button class="menu-button">{{user.username}}</button>
+    <button class="return-button">
+      <a href="{% url 'detail_view' question.id %}">&larr; Назад</a>
+    </button>
+    <h2 class="title-text">{{ question.title }}</h2>
+    <p class="question-text">{{ question.question_text }}</p><br>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+      <button class="submit-button" type="submit">Сохранить</button>
+    </form>
+  </div>
 
 {% endblock %}

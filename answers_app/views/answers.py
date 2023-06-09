@@ -23,3 +23,11 @@ class AnswersCreateView(generic.CreateView):
     def get_success_url(self):
         question_id = self.kwargs['pk']
         return reverse('detail_view', kwargs={'pk': question_id})
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        question_id = self.kwargs['pk']
+        question = get_object_or_404(Question, pk=question_id)
+        context['question'] = question
+        context['user'] = self.request.user
+        return context

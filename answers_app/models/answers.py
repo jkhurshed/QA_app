@@ -8,9 +8,9 @@ class Answer(models.Model):
     question_text = models.ForeignKey("questions_app.Question", on_delete=models.CASCADE, 
                                       verbose_name="Текст вопроса")
     answer_text = models.TextField("Текст ответа")
-    image_answer = models.ImageField("Фото ответ", upload_to="media/images/", blank=True)
+    image_answer = models.ImageField("Фото ответ", upload_to="images/", blank=True)
     video_answer = models.URLField("Видео ответ", max_length=250, blank=True)
-    audio_answer = models.FileField("Аудио", upload_to="media/audio/", blank=True)
+    permission = models.BooleanField("Разрешение", default=False)
     date_created = models.DateTimeField("Время добавления ответа", auto_now_add=True)
 
     class Meta:

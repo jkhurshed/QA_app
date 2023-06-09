@@ -6,5 +6,5 @@ from .models import Answer
 class AnswerAdmin(admin.ModelAdmin):
     model = Answer
     list_display = ('id', 'user', 'question_text', 'answer_text', 
-                    'image_answer', 'video_answer', 'audio_answer', "date_created")
+                    'image_answer', 'video_answer', 'permission', "date_created")
     list_display_links = ("user",)

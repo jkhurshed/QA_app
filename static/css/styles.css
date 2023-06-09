@@ -1,0 +1,4 @@
+.container {
+    width: 10%; /* Decrease the width to 50% of the parent container */
+    height: 30px; /* Decrease the height to 300 pixels */
+  }

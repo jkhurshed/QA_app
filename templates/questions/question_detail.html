@@ -2,15 +2,15 @@
 
 {% block content %}
 
-
+{% load static %}
 
 <div class="question-list">
-    <h1>Question detail</h1>
+    <h1>Подробнее</h1>
     {{ question.question_category }}
-    <p>Author: {{ question.user }}</p>
+    <p>Автор: {{ question.user }}</p>
     <h2>{{ question.title }}</h2>
     <p>{{ question.question_text }}</p>
-    <p>Created: {{ question.date_created }}</p>
+    <p>Создано: {{ question.date_created }}</p>
     {% if user.is_authenticated %}
       <button class="btn btn-link">
         <a href="{% url 'answer_create' question.id %}">Ответить</a>
@@ -18,16 +18,18 @@
     {% endif %}
 </div>
 
-<h2>Answers</h2>
+<h2>Ответы</h2>
 <ul>
   {% for answer in question.answer_set.all %}
-    <section>
+    {% if answer.permission %}
+      <section>
         {{ answer.user }}
         {{ answer.date_created }}
         <li>{{ answer.answer_text }}</li>
-    </section>
+      </section>
+    {% endif %}
   {% empty %}
-    <li>No answers yet.</li>
+    <li>Ответов еще нету.</li>
   {% endfor %}
 </ul>
 {% endblock %}
